@@ -15,15 +15,15 @@
 
     <header>      
         <img src="./images/uol.svg" alt="uol">
-        <img src="./images/people.svg" alt="participantes">
+        <img src="./images/people.svg" alt="participantes" onclick="openMenu()">
     </header>
 
     <body>
     
     </body>
 
-    <div class="container">
-        <div class="hidder"></div>
+    <div class="container hidden" id="container">
+        <div class="hidder" onclick="closeMenu()"></div>
         <aside>
             <div class="header">
                 <p>Escolha um contato<br />para enviar uma mensagem:</p>
@@ -36,4 +36,8 @@
         <input type="text" placeholder="Escreva aqui...">
         <img src="./images/send.svg" alt="Enviar">
     </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="index.js"></script>
+
 </html>
