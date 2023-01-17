@@ -19,6 +19,7 @@ function join(usr) {
         console.log(res);
         setTimeout(function () { 
             sendMsg(usr, "Todos", "Testando minha API novamente", "message");
+            getPeople();
             getMsg();
         }, 2000);
         
@@ -64,6 +65,16 @@ function sendMsg(from, to, text, type) {
     });
 };
 
+function getPeople() {
+    const baseURL = "https://mock-api.driven.com.br/api/v6/uol/participants";
+
+    axios.get(baseURL).then((res) => {
+        console.log(res);
+    })
+    .catch ((err) => {
+        console.log(err);
+    });
+}
 
 const usr = "Thom";
 join(usr);
