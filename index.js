@@ -1,4 +1,10 @@
-// side menu
+// const and variables
+let stillOnline = null;
+let keepGettingMsg = null;
+let usr = "";
+let msgs = [];
+
+// Page
 
 function openMenu() {
     document.getElementById("container").classList.remove("hidden");
@@ -8,56 +14,60 @@ function closeMenu() {
     document.getElementById("container").classList.add("hidden");
 };
 
+function printMsgs(msgs) {
+    
+}
+
 
 // API`s
-let stillOnline = null;
 
-function join(usr) {
+const login = async (usr) => {
     const baseURL = "https://mock-api.driven.com.br/api/v6/uol/participants";
     const user = { name: `${usr}` };
-     axios.post(baseURL, user).then((res) => {
-        console.log(res);
-        setTimeout(function () { 
-            sendMsg(usr, "Todos", "Testando minha API novamente", "message");
-            getPeople();
-            getMsg();
-        }, 2000);
-        
-        stillOnline = setInterval(function () {ping(usr)}, 5000);
+     await axios.post(baseURL, user).then((res) => {
+        if (res.status === 200) {
+            stillOnline = setInterval(function () {ping(usr)}, 5000);
+            keepGettingMsg = setInterval(getMsg, 3000);
+        }
     })
     .catch ((err) => {
-        console.log(err);
+        if (err.response.status === 400) {
+            usr = window.prompt("Nome já utilizado, por favor escolha outro nome!");
+            login(usr);
+        }
+        else
+            console.log(err);
     });
 };
 
-function ping(usr) {
+const ping = async (usr) => {
     const baseURL = "https://mock-api.driven.com.br/api/v6/uol/status";
     const user = { name: `${usr}` };
 
-    axios.post(baseURL, user).then((res) => {
-        console.log(res);
+    await axios.post(baseURL, user).then(() => {
     })
     .catch ((err) => {
         console.log(err);
     });
 };
 
-function getMsg() {
+const getMsg = async () => {
     const baseURL = "https://mock-api.driven.com.br/api/v6/uol/messages";
 
-    axios.get(baseURL).then((res) => {
-        console.log(res.data);
+    await axios.get(baseURL).then((res) => {
+        msgs = res.data;
+        printMsgs(msgs);
     })
     .catch ((err) => {
         console.log(err);
     });
 };
 
-function sendMsg(from, to, text, type) {
+const sendMsg = async (from, to, text, type) => {
     const params = { from: `${from}`, to: `${to}`, text: `${text}`, type: `${type}` };
     const baseURL = "https://mock-api.driven.com.br/api/v6/uol/messages";
 
-    axios.post(baseURL, params).then((res) => {
+    await axios.post(baseURL, params).then((res) => {
         console.log(res);
     })
     .catch ((err) => {
@@ -65,10 +75,10 @@ function sendMsg(from, to, text, type) {
     });
 };
 
-function getPeople() {
+const getPeople = async () => {
     const baseURL = "https://mock-api.driven.com.br/api/v6/uol/participants";
 
-    axios.get(baseURL).then((res) => {
+    await axios.get(baseURL).then((res) => {
         console.log(res);
     })
     .catch ((err) => {
@@ -76,6 +86,15 @@ function getPeople() {
     });
 }
 
-const usr = "Thom";
-join(usr);
-setTimeout(function () {clearInterval(stillOnline)}, 15000);
+// Runs
+usr = window.prompt("Qual nome você gostaria de utilizar para entrar no chat?");
+login(usr);
+setTimeout(function () {
+    clearInterval(stillOnline);
+    clearInterval(keepGettingMsg);
+}, 15000);
+
+
+
+// sendMsg(usr, "Todos", "Testando minha API novamente", "message");
+
