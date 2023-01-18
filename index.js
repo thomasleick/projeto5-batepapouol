@@ -15,7 +15,25 @@ function closeMenu() {
 };
 
 function printMsgs(msgs) {
-    
+    const main = document.getElementsByTagName("main")[0];
+    main.innerHTML = "";
+
+    msgs.forEach(msg => {
+        if (msg.type === "status")
+            main.innerHTML += `
+                <div class="status">(${msg.time}) <b>${msg.from}</b> ${msg.text}.</div>
+            `
+        else if (msg.type === "message")
+            main.innerHTML += `
+                <div class="message">(${msg.time}) <b>${msg.from}</b> para <b>${msg.to}</b>: ${msg.text}</div>
+            `
+        else if (msg.type === "private_message")
+            main.innerHTML += `
+                <div class="private_message">(${msg.time}) <b>${msg.from}</b> reservadamente para <b>${msg.to}</b>: ${msg.text}</div>
+            `
+    });
+
+    console.log(msgs);
 }
 
 
