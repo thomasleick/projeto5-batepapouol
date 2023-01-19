@@ -24,8 +24,8 @@
     </body>
 
     <footer>
-        <input type="text" placeholder="Escreva aqui...">
-        <img src="./images/send.svg" alt="Enviar">
+        <input id="msg" type="text" placeholder="Escreva aqui..." onchange="setMsg(this)">
+        <img src="./images/send.svg" alt="Enviar" onclick="clickSendMsg()">
     </footer>
 
     <div class="container hidden" id="container">

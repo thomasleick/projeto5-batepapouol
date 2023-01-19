@@ -2,6 +2,7 @@
 let stillOnline = null;
 let keepGettingMsg = null;
 let usr = "";
+let msg = "";
 let msgs = [];
 
 // Page
@@ -33,6 +34,16 @@ function printMsgs(msgs) {
             `
     });
     main.innerHTML += `<span id="scrollTo"></span>`;
+}
+
+function setMsg(t) {
+    msg = t.value;
+}
+
+function clickSendMsg() {
+    sendMsg(usr, "Todos", msg, "message");
+    msg = "";
+    document.getElementById("msg").value = "";
 }
 
 
