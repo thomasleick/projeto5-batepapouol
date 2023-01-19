@@ -21,19 +21,18 @@ function printMsgs(msgs) {
     msgs.forEach(msg => {
         if (msg.type === "status")
             main.innerHTML += `
-                <div class="status">(${msg.time}) <b>${msg.from}</b> ${msg.text}.</div>
+                <p class="status"><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}</b>&nbsp${msg.text}.</p>
             `
         else if (msg.type === "message")
             main.innerHTML += `
-                <div class="message">(${msg.time}) <b>${msg.from}</b> para <b>${msg.to}</b>: ${msg.text}</div>
+                <div class="message"><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}&nbsp</b>para<b>&nbsp${msg.to}</b>: ${msg.text}</div>
             `
         else if (msg.type === "private_message")
             main.innerHTML += `
-                <div class="private_message">(${msg.time}) <b>${msg.from}</b> reservadamente para <b>${msg.to}</b>: ${msg.text}</div>
+                <div class="private_message"><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}&nbsp</b>reservadamente para <b>&nbsp${msg.to}</b>: ${msg.text}</div>
             `
     });
-
-    console.log(msgs);
+    main.innerHTML += `<span id="scrollTo"></span>`;
 }
 
 
@@ -75,6 +74,7 @@ const getMsg = async () => {
     await axios.get(baseURL).then((res) => {
         msgs = res.data;
         printMsgs(msgs);
+        document.getElementById("scrollTo").scrollIntoView();
     })
     .catch ((err) => {
         console.log(err);
