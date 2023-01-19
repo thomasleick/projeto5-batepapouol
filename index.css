@@ -21,9 +21,8 @@ header {
 }
 
 body {
-    width: 100%;
-    height: calc(100% - 160px);
-    margin-top: 80px;
+    width: 100vw;
+    height: 100vh;
     background: #E5E5E5;
 }
 
@@ -36,6 +35,7 @@ main {
     justify-content: center;
     overflow-x:hidden;
     overflow-y:visible;
+    margin-top: 80px;
 }
 
 footer {

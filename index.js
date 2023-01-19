@@ -107,12 +107,9 @@ const getPeople = async () => {
 // Runs
 usr = window.prompt("Qual nome você gostaria de utilizar para entrar no chat?");
 login(usr);
-setTimeout(function () {
+/* setTimeout(function () {
     clearInterval(stillOnline);
     clearInterval(keepGettingMsg);
-}, 15000);
-
-
-
+}, 15000); */
 // sendMsg(usr, "Todos", "Testando minha API novamente", "message");
 
