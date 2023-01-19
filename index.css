@@ -22,20 +22,21 @@ header {
 
 body {
     width: 100vw;
-    height: 100vh;
+    height: calc(100% - 160px);
     background: #E5E5E5;
+    padding-top: 80px;
 }
 
 main {
     width: 100%;
-    height: calc(100% - 80px);
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     overflow-x:hidden;
     overflow-y:visible;
-    margin-top: 80px;
+    
 }
 
 footer {
@@ -98,7 +99,8 @@ aside {
     height: calc(100% - 80px);
 }
 
-header p {
+p {
+    
     text-align: center;
     font-weight: 700;
     font-size: 16px;
@@ -140,4 +142,46 @@ b {
 
 .time {
     color: #AAAAAA;
+}
+
+.body img {
+    height: 20.31px;
+    width: 20.31px;
+}
+
+.visibility div {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: aquamarine;
+}
+
+.visibility div div {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    background-color: gray;
+}
+
+.people div {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: aquamarine;
+}
+
+.people div div {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    background-color: gray;
+}
+
+.body p {
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

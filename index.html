@@ -24,8 +24,8 @@
     </body>
 
     <footer>
-        <input id="msg" type="text" placeholder="Escreva aqui..." onchange="setMsg(this)">
-        <img src="./images/send.svg" alt="Enviar" onclick="clickSendMsg()">
+        <input id="msg" type="text" placeholder="Escreva aqui..." oninput="setMsg(this)">
+        <img id="sendMsg" src="./images/send.svg" alt="Enviar" onclick="clickSendMsg()">
     </footer>
 
     <div class="container hidden" id="container">
@@ -34,7 +34,16 @@
             <div class="header">
                 <p>Escolha um contato<br />para enviar uma mensagem:</p>
             </div>
-            <div class="body"></div>
+            <div class="body">
+                <div class="people">
+                    <div><div><img src="./images/people.svg" alt="Todos">&nbsp Todos</div><img src="./images/check.svg" alt="Selecionado"></div>
+                </div>
+                <div class="visibility">
+                    <p>Escolha a visibilidade:</p>
+                    <div><div><img src="./images/locker.svg" alt="Público">&nbsp Público</div><img src="./images/check.svg" alt="Selecionado"></div>
+                    <div><div><img src="./images/locker.svg" alt="Reservadamente">&nbsp Reservadamente</div><img src="./images/check.svg" alt="Selecionado"></div>
+                </div>
+            </div>
         </aside>
     </div>
     

@@ -1,9 +1,12 @@
 // const and variables
 let stillOnline = null;
 let keepGettingMsg = null;
+let keepGettingWhoIsOnline = null;
 let usr = "";
 let msg = "";
 let msgs = [];
+let people = [];
+let lastlastPing = new Date();
 
 // Page
 
@@ -29,9 +32,10 @@ function printMsgs(msgs) {
                 <div class="message"><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}&nbsp</b>para<b>&nbsp${msg.to}</b>: ${msg.text}</div>
             `
         else if (msg.type === "private_message")
-            main.innerHTML += `
-                <div class="private_message"><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}&nbsp</b>reservadamente para <b>&nbsp${msg.to}</b>: ${msg.text}</div>
-            `
+            if (msg.from === usr || msg.to === usr)
+                main.innerHTML += `
+                    <div class="private_message"><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}&nbsp</b>reservadamente para <b>&nbsp${msg.to}</b>: ${msg.text}</div>
+                `
     });
     main.innerHTML += `<span id="scrollTo"></span>`;
 }
@@ -46,25 +50,36 @@ function clickSendMsg() {
     document.getElementById("msg").value = "";
 }
 
+// Send msg on press Enter
+document.getElementById("msg").addEventListener("keypress", function(e) {
+
+  if (e.key === "Enter") {
+    e.preventDefault();
+    clickSendMsg();
+  }
+});
+
+
+function loggedIn() {
+
+    ping(usr);
+    getMsgs();
+    getWhoIsOnline();
+
+    stillOnline = setInterval(function () {ping(usr)}, 5000);
+    keepGettingMsg = setInterval(getMsgs, 3000);
+    keepGettingWhoIsOnline = setInterval(getWhoIsOnline, 10000);
+}
 
 // API`s
 
 const login = async (usr) => {
     const baseURL = "https://mock-api.driven.com.br/api/v6/uol/participants";
     const user = { name: `${usr}` };
-     await axios.post(baseURL, user).then((res) => {
-        if (res.status === 200) {
-            stillOnline = setInterval(function () {ping(usr)}, 5000);
-            keepGettingMsg = setInterval(getMsg, 3000);
-        }
-    })
-    .catch ((err) => {
-        if (err.response.status === 400) {
-            usr = window.prompt("Nome já utilizado, por favor escolha outro nome!");
-            login(usr);
-        }
-        else
-            console.log(err);
+     await axios.post(baseURL, user).then(() => loggedIn())
+    .catch (() => {
+        window.alert("Este nome já está em uso!")
+        return window.location.reload();
     });
 };
 
@@ -72,47 +87,35 @@ const ping = async (usr) => {
     const baseURL = "https://mock-api.driven.com.br/api/v6/uol/status";
     const user = { name: `${usr}` };
 
-    await axios.post(baseURL, user).then(() => {
-    })
-    .catch ((err) => {
-        console.log(err);
-    });
+    await axios.post(baseURL, user).then(() => lastPing = new Date())
+    .catch (() => window.location.reload());
 };
 
-const getMsg = async () => {
+const getMsgs = async () => {
     const baseURL = "https://mock-api.driven.com.br/api/v6/uol/messages";
 
     await axios.get(baseURL).then((res) => {
         msgs = res.data;
         printMsgs(msgs);
         document.getElementById("scrollTo").scrollIntoView();
+        return 1;
     })
-    .catch ((err) => {
-        console.log(err);
-    });
+    .catch (() => window.location.reload());
 };
 
 const sendMsg = async (from, to, text, type) => {
     const params = { from: `${from}`, to: `${to}`, text: `${text}`, type: `${type}` };
     const baseURL = "https://mock-api.driven.com.br/api/v6/uol/messages";
 
-    await axios.post(baseURL, params).then((res) => {
-        console.log(res);
-    })
-    .catch ((err) => {
-        console.log(err);
-    });
+    await axios.post(baseURL, params).then(() => getMsgs())
+    .catch (() => window.location.reload());
 };
 
-const getPeople = async () => {
+const getWhoIsOnline = async () => {
     const baseURL = "https://mock-api.driven.com.br/api/v6/uol/participants";
 
-    await axios.get(baseURL).then((res) => {
-        console.log(res);
-    })
-    .catch ((err) => {
-        console.log(err);
-    });
+    await axios.get(baseURL).then((res) => people = res.data)
+    .catch (() => window.location.reload());
 }
 
 // Runs
