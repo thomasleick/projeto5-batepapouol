@@ -45,7 +45,7 @@ function clickPerson(prs){
     
     document.getElementById(rec).classList.add("hidden");
     document.getElementById(prs).classList.remove("hidden");
-    
+
     rec = prs;
     changeDescMsg()
     return 0;
@@ -109,6 +109,11 @@ function setMsg(t) {
     return 0;
 }
 
+function setUsr(t) {
+    usr = t.value;
+    return 0;
+}
+
 function clickSendMsg() {
     let msgType = "message";
 
@@ -133,8 +138,18 @@ document.getElementById("msg").addEventListener("keypress", function(e) {
   }
 });
 
+// login on press Enter
+document.getElementById("userText").addEventListener("keypress", function(e) {
+
+    if (e.key === "Enter") {
+      e.preventDefault();
+      login(usr);
+    }
+  });
+
 function loggedIn() {
 
+    document.getElementById("login").style.display = 'none';
     ping(usr);
     getMsgs();
     getWhoIsOnline();
@@ -198,13 +213,4 @@ const getWhoIsOnline = async () => {
     })
     .catch (() => window.location.reload());
 }
-
-// Runs
-usr = window.prompt("Qual nome você gostaria de utilizar para entrar no chat?");
-login(usr);
-/* setTimeout(function () {
-    clearInterval(stillOnline);
-    clearInterval(keepGettingMsg);
-}, 15000); */
-// sendMsg(usr, "Todos", "Testando minha API novamente", "message");
 
