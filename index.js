@@ -69,34 +69,48 @@ function printMsgs(msgs) {
                 `
     });
     main.innerHTML += `<span id="scrollTo"></span>`;
+    return 0;
 }
 
 function printWhoIsOnline(people) {
     const element = document.getElementsByClassName("people")[0];
+    let userClickedIsOnline = false;
     element.innerHTML = 
         `<div onclick="clickPerson('Todos')">
             <div><img src="./images/people.svg" alt="Todos">&nbsp Todos</div>
-            <img id="Todos" class=${rec !== "Todos" ? "hidden" : "" } src="./images/check.svg" alt="Selecionado">
+            <img id="Todos" class=${rec !== "Todos" ? "hidden" : "visible" } src="./images/check.svg" alt="Selecionado">
         </div>`;
 
     people.forEach(person => {
         element.innerHTML += 
             `<div onclick="clickPerson('${person.name}')">
                 <div><img src="./images/person.svg" alt=${person.name}>&nbsp ${person.name}</div>
-                <img id=${person.name} class=${rec !== person.name ? "hidden" : "" } src="./images/check.svg" alt="Selecionado">
+                <img id=${person.name} class=${rec !== person.name ? "hidden" : "visible" } src="./images/check.svg" alt="Selecionado">
             </div>`;
+        
+        if (person.name === rec)
+            userClickedIsOnline = true;
     })
+
+    if (!userClickedIsOnline) {
+        document.getElementById("Todos").classList.remove("hidden");
+        rec = "Todos";
+    }
     return 0;
 }
 
 function setMsg(t) {
     msg = t.value;
+    return 0;
 }
 
 function clickSendMsg() {
+    if (msg === "")
+        return -1;
     sendMsg(usr, "Todos", msg, "message");
     msg = "";
     document.getElementById("msg").value = "";
+    return 0;
 }
 
 // Send msg on press Enter
