@@ -40,8 +40,14 @@
                 </div>
                 <div class="visibility">
                     <p>Escolha a visibilidade:</p>
-                    <div><div><img src="./images/locker.svg" alt="Público">&nbsp Público</div><img src="./images/check.svg" alt="Selecionado"></div>
-                    <div><div><img src="./images/locker.svg" alt="Reservadamente">&nbsp Reservadamente</div><img src="./images/check.svg" alt="Selecionado"></div>
+                    <div onclick="clickVisibility(false)">
+                        <div><img src="./images/locker.svg" alt="Público">&nbsp Público</div>
+                        <img id="public" src="./images/check.svg" alt="Selecionado">
+                    </div>
+                    <div onclick="clickVisibility(true)">
+                        <div><img src="./images/locker.svg" alt="Reservadamente">&nbsp Reservadamente</div>
+                        <img class="hidden" id="private" src="./images/check.svg" alt="Selecionado">
+                    </div>
                 </div>
             </div>
         </aside>

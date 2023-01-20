@@ -7,6 +7,8 @@ let msg = "";
 let msgs = [];
 let people = [];
 let lastlastPing = new Date();
+let isPM = false;
+let rec = "Todos"
 
 // Page
 
@@ -17,6 +19,35 @@ function openMenu() {
 function closeMenu() {
     document.getElementById("container").classList.add("hidden");
 };
+
+function clickVisibility(pm) {
+
+    if (isPM === pm)
+        return 0;
+
+    isPM = pm;
+    if (!isPM) {
+        document.getElementById("public").classList.remove("hidden");
+        document.getElementById("private").classList.add("hidden");
+        return 0;
+    }
+
+    document.getElementById("public").classList.add("hidden");
+    document.getElementById("private").classList.remove("hidden");
+    return 0;
+}
+
+function clickPerson(prs){
+    if (rec === prs)
+        return 0;
+    
+    document.getElementById(rec).classList.add("hidden");
+    document.getElementById(prs).classList.remove("hidden");
+    rec = prs;
+    return 0;
+}
+    
+    
 
 function printMsgs(msgs) {
     const main = document.getElementsByTagName("main")[0];
@@ -40,6 +71,24 @@ function printMsgs(msgs) {
     main.innerHTML += `<span id="scrollTo"></span>`;
 }
 
+function printWhoIsOnline(people) {
+    const element = document.getElementsByClassName("people")[0];
+    element.innerHTML = 
+        `<div onclick="clickPerson('Todos')">
+            <div><img src="./images/people.svg" alt="Todos">&nbsp Todos</div>
+            <img id="Todos" class=${rec !== "Todos" ? "hidden" : "" } src="./images/check.svg" alt="Selecionado">
+        </div>`;
+
+    people.forEach(person => {
+        element.innerHTML += 
+            `<div onclick="clickPerson('${person.name}')">
+                <div><img src="./images/person.svg" alt=${person.name}>&nbsp ${person.name}</div>
+                <img id=${person.name} class=${rec !== person.name ? "hidden" : "" } src="./images/check.svg" alt="Selecionado">
+            </div>`;
+    })
+    return 0;
+}
+
 function setMsg(t) {
     msg = t.value;
 }
@@ -58,7 +107,6 @@ document.getElementById("msg").addEventListener("keypress", function(e) {
     clickSendMsg();
   }
 });
-
 
 function loggedIn() {
 
@@ -98,7 +146,7 @@ const getMsgs = async () => {
         msgs = res.data;
         printMsgs(msgs);
         document.getElementById("scrollTo").scrollIntoView();
-        return 1;
+        return 0;
     })
     .catch (() => window.location.reload());
 };
@@ -114,7 +162,11 @@ const sendMsg = async (from, to, text, type) => {
 const getWhoIsOnline = async () => {
     const baseURL = "https://mock-api.driven.com.br/api/v6/uol/participants";
 
-    await axios.get(baseURL).then((res) => people = res.data)
+    await axios.get(baseURL).then((res) => {
+        people = res.data;
+        printWhoIsOnline(people);
+        return 0;
+    })
     .catch (() => window.location.reload());
 }
 

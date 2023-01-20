@@ -149,39 +149,27 @@ b {
     width: 20.31px;
 }
 
-.visibility div {
-    height: 36px;
+.visibility div, .visibility div div, .people div, .people div div, .body p  {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: aquamarine;
 }
 
-.visibility div div {
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    background-color: gray;
-}
-
-.people div {
+.visibility div, .people div, .body p {
     height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: aquamarine;
+
+}
+
+.people div, .visibility div {
+    margin: 0 12px;
 }
 
 .people div div {
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    background-color: gray;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px;
+    white-space: nowrap;
 }
-
-.body p {
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.hidden {
+    visibility: hidden;
 }
