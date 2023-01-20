@@ -94,17 +94,17 @@ aside {
 .body {
     width: 100%;
     height: calc(100% - 80px);
+    
 }
 
-.header p {
-    
+.header p, .body p {
+    width: 100%;
     text-align: center;
     font-weight: 700;
     font-size: 16px;
     line-height: 19px;
     color: #000000;
 }
-
 
 .status, .private_message, .message{
     min-height: 40px;
@@ -148,7 +148,7 @@ b {
     width: 20.31px;
 }
 
-.visibility div, .visibility div div, .people div, .people div div, .body p  {
+.visibility div, .visibility div div, .people div, .people div div {
     display: flex;
     align-items: center;
     justify-content: space-between;
