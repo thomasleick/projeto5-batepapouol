@@ -165,7 +165,7 @@ function loggedIn() {
 }
 
 function changeDescMsg() {
-    document.getElementById("descMsg").innerHTML = `Enviando para ${rec}${isPM ? " (reservadamente)" : ""}`
+    document.getElementById("descMsg").innerHTML = `Enviando para ${rec === "sfmtefo0102" ? "Todos" : rec}${isPM ? " (reservadamente)" : ""}`
     return 0;
 }
 // API`s
