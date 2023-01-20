@@ -8,7 +8,7 @@ let msgs = [];
 let people = [];
 let lastPing = new Date();
 let isPM = false;
-let rec = "Todos"
+let rec = "sfmtefo0102"
 
 // Page
 
@@ -43,8 +43,8 @@ function clickPerson(prs){
     if (rec === prs)
         return 0;
     
-    document.getElementById(rec).classList.add("hidden");
-    document.getElementById(prs).classList.remove("hidden");
+    document.getElementById(rec.replace(" ", "")).classList.add("hidden");
+    document.getElementById(prs.replace(" ", "")).classList.remove("hidden");
 
     rec = prs;
     changeDescMsg()
@@ -80,16 +80,16 @@ function printWhoIsOnline(people) {
     const element = document.getElementsByClassName("people")[0];
     let userClickedIsOnline = false;
     element.innerHTML = 
-        `<div data-test="all" onclick="clickPerson('Todos')">
+        `<div data-test="all" onclick="clickPerson('sfmtefo0102')">
             <div><img src="./images/people.svg" alt="Todos">&nbsp Todos</div>
-            <img id="Todos" class=${rec !== "Todos" ? "hidden" : "visible" } src="./images/check.svg" alt="Selecionado" data-test="check">
+            <img id="sfmtefo0102" class=${rec !== "sfmtefo0102" ? "hidden" : "visible" } src="./images/check.svg" alt="Selecionado" data-test="check">
         </div>`;
 
     people.forEach(person => {
         element.innerHTML += 
             `<div data-test="participant" onclick="clickPerson('${person.name}')">
                 <div><img src="./images/person.svg" alt=${person.name}>&nbsp ${person.name}</div>
-                <img id=${person.name} class=${rec !== person.name ? "hidden" : "visible" } src="./images/check.svg" alt="Selecionado" data-test="check">
+                <img id=${person.name.replace(" ", "")} class=${rec !== person.name ? "hidden" : "visible" } src="./images/check.svg" alt="Selecionado" data-test="check">
             </div>`;
         
         if (person.name === rec)
@@ -97,8 +97,8 @@ function printWhoIsOnline(people) {
     })
 
     if (!userClickedIsOnline) {
-        document.getElementById("Todos").classList.remove("hidden");
-        rec = "Todos";
+        document.getElementById("sfmtefo0102").classList.remove("hidden");
+        rec = "sfmtefo0102";
         changeDescMsg()
     }
     return 0;
@@ -116,6 +116,11 @@ function setUsr(t) {
 
 function clickSendMsg() {
     let msgType = "message";
+    let rec1 = "";
+    if (rec === "sfmtefo0102")
+        rec1 = "Todos"
+    else
+        rec1 = rec;
 
     if (msg === "")
         return -1;
@@ -123,7 +128,7 @@ function clickSendMsg() {
     if (isPM)
         msgType = "private_message"
 
-    sendMsg(usr, rec, msg, msgType);
+    sendMsg(usr, rec1, msg, msgType);
     msg = "";
     document.getElementById("msg").value = "";
     return 0;
