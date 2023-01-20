@@ -15,7 +15,7 @@
 
     <header>      
         <img src="./images/uol.svg" alt="uol">
-        <img src="./images/people.svg" alt="participantes" onclick="openMenu()">
+        <img src="./images/people.svg" alt="participantes" onclick="openMenu()" data-test="open-participants">
     </header>
 
     <body>
@@ -25,10 +25,10 @@
 
     <footer>
         <div>
-            <input id="msg" type="text" placeholder="Escreva aqui..." oninput="setMsg(this)" />
-            <h2 id="descMsg">Enviando para Todos</h2>
+            <input id="msg" data-test="input-message" type="text" placeholder="Escreva aqui..." oninput="setMsg(this)" />
+            <h2 id="descMsg" data-test="recipient">Enviando para Todos</h2>
         </div>
-        <img id="sendMsg" src="./images/send.svg" alt="Enviar" onclick="clickSendMsg()" />
+        <img id="sendMsg" data-test="send-message" src="./images/send.svg" alt="Enviar" onclick="clickSendMsg()" />
     </footer>
 
     <div class="container hidden" id="container">
@@ -43,13 +43,13 @@
                 </div>
                 <div class="visibility">
                     <p>Escolha a visibilidade:</p>
-                    <div onclick="clickVisibility(false)">
+                    <div onclick="clickVisibility(false)" data-test="public">
                         <div><img src="./images/locker.svg" alt="Público">&nbsp Público</div>
-                        <img id="public" src="./images/check.svg" alt="Selecionado" />
+                        <img id="public" src="./images/check.svg" alt="Selecionado" data-test="check"/>
                     </div>
-                    <div onclick="clickVisibility(true)">
+                    <div onclick="clickVisibility(true)" data-test="private">
                         <div><img src="./images/locker.svg" alt="Reservadamente">&nbsp Reservadamente</div>
-                        <img class="hidden" id="private" src="./images/check.svg" alt="Selecionado" />
+                        <img class="hidden" id="private" src="./images/check.svg" alt="Selecionado" data-test="check"/>
                     </div>
                 </div>
             </div>

@@ -60,16 +60,16 @@ function printMsgs(msgs) {
     msgs.forEach(msg => {
         if (msg.type === "status")
             main.innerHTML += `
-                <li class="status"><p><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}</b>&nbsp${msg.text}.</p></li>
+                <li class="status" data-test="message"><p><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}</b>&nbsp${msg.text}.</p></li>
             `
         else if (msg.type === "message")
             main.innerHTML += `
-                <li class="message"><p><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}&nbsp</b>para<b>&nbsp${msg.to}</b>: ${msg.text}</p></li>
+                <li class="message" data-test="message"><p><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}&nbsp</b>para<b>&nbsp${msg.to}</b>: ${msg.text}</p></li>
             `
         else if (msg.type === "private_message")
             if (msg.from === usr || msg.to === usr)
                 main.innerHTML += `
-                    <li class="private_message"><p><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}&nbsp</b>reservadamente para <b>&nbsp${msg.to}</b>: ${msg.text}</p></li>
+                    <li class="private_message" data-test="message"><p><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}&nbsp</b>reservadamente para <b>&nbsp${msg.to}</b>: ${msg.text}</p></li>
                 `
     });
     main.innerHTML += `<span id="scrollTo"></span></ul>`;
@@ -80,16 +80,16 @@ function printWhoIsOnline(people) {
     const element = document.getElementsByClassName("people")[0];
     let userClickedIsOnline = false;
     element.innerHTML = 
-        `<div onclick="clickPerson('Todos')">
+        `<div data-test="all" onclick="clickPerson('Todos')">
             <div><img src="./images/people.svg" alt="Todos">&nbsp Todos</div>
-            <img id="Todos" class=${rec !== "Todos" ? "hidden" : "visible" } src="./images/check.svg" alt="Selecionado">
+            <img id="Todos" class=${rec !== "Todos" ? "hidden" : "visible" } src="./images/check.svg" alt="Selecionado" data-test="check">
         </div>`;
 
     people.forEach(person => {
         element.innerHTML += 
-            `<div onclick="clickPerson('${person.name}')">
+            `<div data-test="participant" onclick="clickPerson('${person.name}')">
                 <div><img src="./images/person.svg" alt=${person.name}>&nbsp ${person.name}</div>
-                <img id=${person.name} class=${rec !== person.name ? "hidden" : "visible" } src="./images/check.svg" alt="Selecionado">
+                <img id=${person.name} class=${rec !== person.name ? "hidden" : "visible" } src="./images/check.svg" alt="Selecionado" data-test="check">
             </div>`;
         
         if (person.name === rec)
