@@ -6,7 +6,7 @@ let usr = "";
 let msg = "";
 let msgs = [];
 let people = [];
-let lastlastPing = new Date();
+let lastPing = new Date();
 let isPM = false;
 let rec = "Todos"
 
@@ -34,6 +34,8 @@ function clickVisibility(pm) {
 
     document.getElementById("public").classList.add("hidden");
     document.getElementById("private").classList.remove("hidden");
+
+    changeDescMsg()
     return 0;
 }
 
@@ -43,7 +45,9 @@ function clickPerson(prs){
     
     document.getElementById(rec).classList.add("hidden");
     document.getElementById(prs).classList.remove("hidden");
+    
     rec = prs;
+    changeDescMsg()
     return 0;
 }
     
@@ -95,6 +99,7 @@ function printWhoIsOnline(people) {
     if (!userClickedIsOnline) {
         document.getElementById("Todos").classList.remove("hidden");
         rec = "Todos";
+        changeDescMsg()
     }
     return 0;
 }
@@ -105,9 +110,15 @@ function setMsg(t) {
 }
 
 function clickSendMsg() {
+    let msgType = "message";
+
     if (msg === "")
         return -1;
-    sendMsg(usr, "Todos", msg, "message");
+
+    if (isPM)
+        msgType = "private_message"
+
+    sendMsg(usr, rec, msg, msgType);
     msg = "";
     document.getElementById("msg").value = "";
     return 0;
@@ -133,6 +144,10 @@ function loggedIn() {
     keepGettingWhoIsOnline = setInterval(getWhoIsOnline, 10000);
 }
 
+function changeDescMsg() {
+    document.getElementById("descMsg").innerHTML = `Enviando para ${rec}${isPM ? " (reservadamente)" : ""}`
+    return 0;
+}
 // API`s
 
 const login = async (usr) => {
