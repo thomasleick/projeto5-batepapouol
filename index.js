@@ -55,24 +55,24 @@ function clickPerson(prs){
 
 function printMsgs(msgs) {
     const main = document.getElementsByTagName("main")[0];
-    main.innerHTML = "";
+    main.innerHTML = "<ul>";
 
     msgs.forEach(msg => {
         if (msg.type === "status")
             main.innerHTML += `
-                <p class="status"><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}</b>&nbsp${msg.text}.</p>
+                <li class="status"><p><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}</b>&nbsp${msg.text}.</p></li>
             `
         else if (msg.type === "message")
             main.innerHTML += `
-                <div class="message"><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}&nbsp</b>para<b>&nbsp${msg.to}</b>: ${msg.text}</div>
+                <li class="message"><p><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}&nbsp</b>para<b>&nbsp${msg.to}</b>: ${msg.text}</p></li>
             `
         else if (msg.type === "private_message")
             if (msg.from === usr || msg.to === usr)
                 main.innerHTML += `
-                    <div class="private_message"><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}&nbsp</b>reservadamente para <b>&nbsp${msg.to}</b>: ${msg.text}</div>
+                    <li class="private_message"><p><span class="time">(${msg.time})</span>&nbsp<b>${msg.from}&nbsp</b>reservadamente para <b>&nbsp${msg.to}</b>: ${msg.text}</p></li>
                 `
     });
-    main.innerHTML += `<span id="scrollTo"></span>`;
+    main.innerHTML += `<span id="scrollTo"></span></ul>`;
     return 0;
 }
 
