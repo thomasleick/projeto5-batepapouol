@@ -43,8 +43,8 @@ function clickPerson(prs){
     if (rec === prs)
         return 0;
     
-    document.getElementById(rec.replace(" ", "")).classList.add("hidden");
-    document.getElementById(prs.replace(" ", "")).classList.remove("hidden");
+    document.getElementById(rec.replace(" ", "1029skslas39KKk")).classList.add("hidden");
+    document.getElementById(prs.replace(" ", "1029skslas39KKk")).classList.remove("hidden");
 
     rec = prs;
     changeDescMsg()
@@ -89,7 +89,7 @@ function printWhoIsOnline(people) {
         element.innerHTML += 
             `<div data-test="participant" onclick="clickPerson('${person.name}')">
                 <div><img src="./images/person.svg" alt=${person.name}>&nbsp ${person.name}</div>
-                <img id=${person.name.replace(" ", "")} class=${rec !== person.name ? "hidden" : "visible" } src="./images/check.svg" alt="Selecionado" data-test="check">
+                <img id=${person.name.replace(" ", "1029skslas39KKk")} class=${rec !== person.name ? "hidden" : "visible" } src="./images/check.svg" alt="Selecionado" data-test="check">
             </div>`;
         
         if (person.name === rec)
